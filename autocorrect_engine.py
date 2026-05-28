@@ -1,25 +1,14 @@
-from spellchecker import SpellChecker
+from textblob import TextBlob
 import re
-
-spell = SpellChecker()
 
 def correct_text(text):
 
-    words = re.findall(r'\w+|\s+|[^\w\s]', text)
+    # Correct full sentence using TextBlob
+    blob = TextBlob(text)
 
-    corrected_words = []
+    corrected_text = str(blob.correct())
 
-    for word in words:
+    # Capitalize first letter properly
+    corrected_text = corrected_text.capitalize()
 
-        if word.isalpha():
-
-            corrected_word = spell.correction(word)
-
-            corrected_words.append(corrected_word)
-
-        else:
-            corrected_words.append(word)
-
-    corrected_sentence = "".join(corrected_words)
-
-    return corrected_sentence
+    return corrected_text
